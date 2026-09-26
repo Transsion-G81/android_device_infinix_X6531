@@ -253,7 +253,7 @@ PRODUCT_PACKAGES += \
     init.mt6768.rc \
     init.cgroup.rc \
     init.insmod.sh \
-    init.mt6768.usb.rc \
+    init.x6531.usb.rc \
     init.project.rc \
     init.sensor_1_0.rc \
     init.target.rc \
