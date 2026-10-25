@@ -242,5 +242,17 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <!-- X6531B only: TMS/THN31 extended NFC HAL.  Declared by the prebuilt
+         android.hardware.nfc@1.2-service-tms through
+         configs/nfc/manifest_x6531b.xml.  optional so the lineage_X6531
+         build (no NFC) still passes checkvintf. -->
+    <hal format="hidl" optional="true">
+        <name>vendor.tms.tmsnfc</name>
+        <version>1.0</version>
+        <interface>
+            <name>ITmsNfc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     
 </compatibility-matrix>

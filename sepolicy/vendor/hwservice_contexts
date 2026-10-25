@@ -9,3 +9,11 @@ vendor.fpsensor.hardware.fpsensorhidlsvc::IFpsensorHidlSvc                 u:obj
 
 # Camera
 vendor.transsion.hardware.trancam.trancamserver::ITrancamserver                     u:object_r:hal_trancamserver_hwservice:s0
+
+# NFC (X6531B - prebuilt TMS/THN31 HAL; inert on the lineage_X6531 build).
+# android.hardware.nfc::INfc is already labelled by
+# system/sepolicy/private/hwservice_contexts; this is the TMS extension the
+# same HAL registers.  Labelling it hal_nfc_hwservice is what the stock
+# firmware did (with its own type) and gives it the add/find rights the
+# hal_nfc attribute already grants.
+vendor.tms.tmsnfc::ITmsNfc                                                          u:object_r:hal_nfc_hwservice:s0

@@ -37,3 +37,14 @@
 
 # Extcon
 /sys/devices/platform/extcon_usb/extcon/extcon0/cable.1/state                           u:object_r:sysfs_OTG_STATE_file:s0
+
+# NFC (X6531B - TMS/THN31; inert on the lineage_X6531 build)
+# /dev/tms_nfc and /dev/tms_ese are created by nfc_i2c_tms.ko /
+# tms_device_modules.ko (modules/modules.load.vendor).  The HAL executable
+# and the service labels for the *other* NFC variants (ST/NXP/Samsung) come
+# from device/mediatek/sepolicy_vndr (base/vendor/file_contexts); the -tms
+# binary is not in that list.  /dev/tms_ese is the TMS eSE the MTK Secure
+# Element HAL drives (its domain has secure_element_device rights).
+/dev/tms_nfc                                                                            u:object_r:nfc_device:s0
+/dev/tms_ese                                                                            u:object_r:secure_element_device:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.2-service-tms                  u:object_r:hal_nfc_default_exec:s0

@@ -1,0 +1,20 @@
+# NFC (X6531B - prebuilt TMS/THN31 HAL + MTK SIM/eUICC Secure Element HAL).
+#
+# Nothing needs to be declared here for the HAL itself:
+#   * hal_nfc_default / hal_nfc_default_exec, the hal_nfc + hal_nfc_server
+#     attributes and the binder plumbing come from
+#     system/sepolicy/vendor/hal_nfc_default.te and private/hal_nfc.te;
+#   * "allow hal_nfc nfc_device:chr_file rw_file_perms" (private/hal_nfc.te)
+#     covers /dev/tms_nfc, which file_contexts labels nfc_device;
+#   * the hal_nfc_hwservice add/find rights come from
+#     hal_attribute_hwservice(hal_nfc, hal_nfc_hwservice) in private/hal_nfc.te,
+#     and hwservice_contexts labels vendor.tms.tmsnfc::ITmsNfc with it;
+#   * /data/vendor/nfc is rw for hal_nfc_default through
+#     device/mediatek/sepolicy_vndr (base/vendor/hal_nfc_default.te).
+#
+# Only the cross-HAL calls the stock firmware allowed are missing, because
+# the MTK Secure Element HAL runs in the mtk_hal_secure_element domain (not
+# hal_secure_element_default): the NFC HAL talks ISecureElement, and the SE
+# HAL talks back to the NFC HAL for the off-host (UICC/eSE) routing.
+allow hal_nfc_default mtk_hal_secure_element:binder call;
+allow mtk_hal_secure_element hal_nfc_default:binder call;

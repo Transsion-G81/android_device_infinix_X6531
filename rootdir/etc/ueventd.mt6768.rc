@@ -53,6 +53,8 @@
 
 # NFC
 /dev/st21nfc              0660   nfc        radio
+/dev/tms_nfc              0660   nfc        nfc
+/dev/tms_ese              0660   secure_element        secure_element
 /dev/st54spi              0660   secure_element        secure_element
 
 # MTK BTIF driver

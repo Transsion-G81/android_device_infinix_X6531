@@ -149,6 +149,55 @@ PRODUCT_PACKAGES += \
     libruy.vendor \
     libtextclassifier_hash.vendor
     
+# NFC (X6531B only - TECNO/Transsion TMS "THN31" controller)
+#
+# Only the X6531B (Infinix HOT 50i with NFC) has an NFC controller: it sits
+# on I2C behind /dev/tms_nfc, brought up by nfc_i2c_tms.ko (already listed in
+# modules/modules.load.vendor).  Everything NFC related lives behind this
+# gate - lineage_X6531.mk inherits device.mk without setting PRODUCT_NAME, so
+# PRODUCT_NAME is empty here for that product and the block is skipped.
+#
+# Lineage's own NFC stack (packages/modules/Nfc: NfcNci + libnfc-nci, both
+# shipped by base_system.mk) binds to the stock HIDL 1.2 HAL first
+# (NfcAdaptation::InitializeHalDeviceContext), so no NFC sources are needed.
+# com.android.nfc_extras and Tag are not part of base_system.mk;
+# SecureElement (com.android.se) already is.
+ifneq ($(filter lineage_X6531B,$(PRODUCT_NAME)),)
+
+# RRO for com.android.nfc (enable_secure_nfc_support for the eSE/UICC routes
+# in libnfc-tms.conf).
+PRODUCT_PACKAGES += \
+    NfcResOverlay_X6531B \
+    Tag \
+    com.android.nfc_extras
+
+# NFC init (/vendor/etc/init/hw/init.stnfc.rc).  The import of that file is
+# already in init.mt6768.rc, init.connectivity.rc,
+# init.connectivity.common.rc and init.connectivity.mt6768.rc - it is a no-op
+# on the X6531 build because the file is only packaged here.
+PRODUCT_PACKAGES += \
+    init.stnfc.rc
+
+# NFC config: libnfc-tms*.conf is read by the HAL, libnfc-nci.conf by
+# libnfc-nci (the framework side) - both from the stock dump.
+# The vintf fragment declares the HALs this product installs.
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*.conf,$(LOCAL_PATH)/configs/nfc,$(TARGET_COPY_OUT_VENDOR)/etc) \
+    $(LOCAL_PATH)/configs/nfc/manifest_x6531b.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.tms.hardware.nfc.xml
+
+# NFC features (the framework only enables NFC when these are present).
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hce.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml \
+    frameworks/native/data/etc/android.hardware.nfc.uicc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.uicc.xml \
+    frameworks/native/data/etc/com.android.nfc_extras.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.android.nfc_extras.xml
+
+# NFC HAL, config and firmware blobs (vendor/infinix/X6531).
+$(call inherit-product, vendor/infinix/X6531/X6531B-nfc.mk)
+
+endif
+
 # Media
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/seccomp,$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy) \

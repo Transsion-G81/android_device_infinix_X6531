@@ -1,0 +1,42 @@
+# X6531B (Infinix HOT 50i with NFC) - TMS/THN31 NFC init.
+#
+# This file is imported by init.mt6768.rc, init.connectivity.rc,
+# init.connectivity.common.rc and init.connectivity.mt6768.rc through
+# "import /vendor/etc/init/hw/init.stnfc.rc".  It is only packaged for
+# lineage_X6531B (device.mk), so the import is a no-op on lineage_X6531.
+#
+# nfc_i2c_tms.ko (modules/modules.load.vendor) creates /dev/tms_nfc and
+# /sys/nfc/chip_name, tms_device_modules.ko the eSE node /dev/tms_ese.  The
+# HAL reads its configuration from /vendor/etc/libnfc-tms*.conf (firmware
+# names from libese-tms.conf) and keeps NVM state in /data/vendor/nfc.
+# The THN31 firmware image (vendor/etc/SEC_THN31_FW_VTP.txt.bin) is shipped
+# by the base vendor tree (vendor/infinix/X6531/X6531-vendor.mk).
+
+on post-fs-data
+    mkdir /data/vendor/nfc 0770 nfc nfc
+    mkdir /data/vendor/nfc/param 0770 nfc nfc
+    mkdir /data/vendor/nfc_socket 0770 nfc nfc
+    mkdir /data/vendor/secure_element 0770 secure_element secure_element
+    chmod 0660 /dev/tms_nfc
+    chown nfc nfc /dev/tms_nfc
+    chmod 0660 /dev/tms_ese
+    chown secure_element secure_element /dev/tms_ese
+
+on boot
+    chown nfc nfc /sys/nfc/chip_name
+
+# TMS/THN31 NFC HAL (prebuilt, vendor/infinix/X6531/proprietary_x6531b).
+# Registers android.hardware.nfc@1.2::INfc/default and
+# vendor.tms.tmsnfc@1.0::ITmsNfc/default; nfc_nci.thn31nfc.tms.so loads the
+# THN31 firmware itself.
+service nfc_hal_service.tms /vendor/bin/hw/android.hardware.nfc@1.2-service-tms
+    class hal
+    user nfc
+    group nfc
+
+# MTK SIM/UICC Secure Element HAL (prebuilt).  Used by com.android.se and by
+# the NFC stack's off-host (UICC/eSE) routing.
+service mtk_secure_element_hal_service /vendor/bin/hw/android.hardware.secure_element@1.2-service-mediatek
+    class hal
+    user secure_element
+    group secure_element

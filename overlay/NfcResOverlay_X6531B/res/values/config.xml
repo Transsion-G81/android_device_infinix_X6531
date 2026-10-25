@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Copyright (C) 2023 The LineageOS Project
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- X6531B (TMS/THN31): the stock libnfc-tms.conf routes to the eSE and
+         UICC off-host secure elements, so secure NFC is supported. -->
+    <bool name="enable_secure_nfc_support">true</bool>
+</resources>
