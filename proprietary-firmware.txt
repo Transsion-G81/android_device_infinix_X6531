@@ -1,0 +1,12 @@
+## All proprietary files from this list, unless pinned and noted otherwise, are
+## from Infinix-X6531-17
+
+gz.img;AB
+lk.img;AB|34a4b57646314cf0d385c0031cb6ff786f191050
+logo.bin:logo.img;AB|55a4127b7b7bc08d04bc795f8a337727a1becd3f
+md1img.img;AB
+scp.img;AB
+spmfw.img;AB
+sspm.img;AB
+tee.img;AB
+tkv.img;AB
