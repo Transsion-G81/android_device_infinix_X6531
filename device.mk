@@ -149,19 +149,7 @@ PRODUCT_PACKAGES += \
     libruy.vendor \
     libtextclassifier_hash.vendor
     
-# NFC (X6531B only - TECNO/Transsion TMS "THN31" controller)
-#
-# Only the X6531B (Infinix HOT 50i with NFC) has an NFC controller: it sits
-# on I2C behind /dev/tms_nfc, brought up by nfc_i2c_tms.ko (already listed in
-# modules/modules.load.vendor).  Everything NFC related lives behind this
-# gate - lineage_X6531.mk inherits device.mk without setting PRODUCT_NAME, so
-# PRODUCT_NAME is empty here for that product and the block is skipped.
-#
-# Lineage's own NFC stack (packages/modules/Nfc: NfcNci + libnfc-nci, both
-# shipped by base_system.mk) binds to the stock HIDL 1.2 HAL first
-# (NfcAdaptation::InitializeHalDeviceContext), so no NFC sources are needed.
-# com.android.nfc_extras and Tag are not part of base_system.mk;
-# SecureElement (com.android.se) already is.
+# NFC (X6531B only): TMS/THN31 controller, so this block is gated on PRODUCT_NAME.
 ifneq ($(filter lineage_X6531B,$(PRODUCT_NAME)),)
 
 # RRO for com.android.nfc (enable_secure_nfc_support for the eSE/UICC routes
@@ -171,16 +159,11 @@ PRODUCT_PACKAGES += \
     Tag \
     com.android.nfc_extras
 
-# NFC init (/vendor/etc/init/hw/init.stnfc.rc).  The import of that file is
-# already in init.mt6768.rc, init.connectivity.rc,
-# init.connectivity.common.rc and init.connectivity.mt6768.rc - it is a no-op
-# on the X6531 build because the file is only packaged here.
+# NFC init: init.mt6768.rc and the connectivity rc files already import this file.
 PRODUCT_PACKAGES += \
     init.stnfc.rc
 
-# NFC config: libnfc-tms*.conf is read by the HAL, libnfc-nci.conf by
-# libnfc-nci (the framework side) - both from the stock dump.
-# The vintf fragment declares the HALs this product installs.
+# NFC config: libnfc-tms*.conf (HAL, and libese-tms.conf) + libnfc-nci.conf.
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*.conf,$(LOCAL_PATH)/configs/nfc,$(TARGET_COPY_OUT_VENDOR)/etc) \
     $(LOCAL_PATH)/configs/nfc/manifest_x6531b.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/vendor.tms.hardware.nfc.xml
