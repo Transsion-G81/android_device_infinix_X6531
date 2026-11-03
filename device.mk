@@ -399,6 +399,3 @@ PRODUCT_COPY_FILES += \
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/infinix/X6531/X6531-vendor.mk)
-
-# Inherit the sign keys
-$(call inherit-product, vendor/lineage-priv/keys/keys.mk)
