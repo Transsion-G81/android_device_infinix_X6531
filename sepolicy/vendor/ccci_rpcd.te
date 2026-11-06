@@ -1,0 +1,2 @@
+# Unlabelled-property reads fail harmlessly; keep them out of the logs.
+dontaudit ccci_rpcd default_prop:file read;

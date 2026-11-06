@@ -1,0 +1,2 @@
+# Unlabelled vendor-prop reads fail harmlessly; keep them out of the logs.
+dontaudit mediaserver vendor_default_prop:file read;
