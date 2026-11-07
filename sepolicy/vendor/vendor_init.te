@@ -7,7 +7,7 @@ rw_dir_file(vendor_init, sysfs_leds)
 
 get_prop(vendor_init, vts_status_prop)
 
-allow vendor_init vendor_userdir_file:dir write;
+dontaudit vendor_init vendor_userdir_file:dir write;
 allow vendor_init cgroup:file getattr;
 allow vendor_init device:file create;
 allow vendor_init proc:file write;
