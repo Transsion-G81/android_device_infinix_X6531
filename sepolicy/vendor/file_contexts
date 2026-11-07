@@ -49,5 +49,3 @@
 /dev/tms_ese                                                                            u:object_r:secure_element_device:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.2-service-tms                  u:object_r:hal_nfc_default_exec:s0
 
-# XGSI (logging/init.xgsi-bootlog.rc)
-/data/xgsi(/.*)?                                                        u:object_r:xgsi_log_data_file:s0
