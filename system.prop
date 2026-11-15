@@ -41,8 +41,8 @@ ro.mtk_perf_response_time=1
 ro.mtk_perf_simple_start_win=1
 security.perf_harden=1
 qs.limited=1
-qs.fps.limited=1
-qs.blur.fps.limited=1
+qs.fps.limited=2
+qs.blur.fps.limited=2
 
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
