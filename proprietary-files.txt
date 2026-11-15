@@ -766,9 +766,11 @@ vendor/etc/init/android.hardware.keymaster@4.1-service.trustonic.rc
 vendor/lib64/hw/kmsetkey.trustonic.so;SYMLINK=vendor/lib64/hw/kmsetkey.default.so
 vendor/lib64/libkmsetkey.so
 vendor/lib64/libtranlog.so
+vendor/lib/libtranlog.so
 vendor/lib64/libMcClient.so
 vendor/lib64/libtnev.so
 vendor/lib64/libtneclient.so
+vendor/lib/libtneclient.so
 vendor/lib64/vendor.transsion.hardware.tne.tneengine@1.0.so
 
 # Keymaster Attestation
@@ -930,6 +932,7 @@ vendor/etc/init/trustonic.mc_kmsetkey_ca.rc
 vendor/etc/init/trustonic.rc
 vendor/lib/libthha.so
 vendor/lib64/libTEECommon.so
+vendor/lib/libTEECommon.so
 vendor/lib64/libimsg_log.so
 vendor/lib64/libthha.so
 vendor/lib64/vendor.trustonic.tee.tui@1.0.so
@@ -1009,7 +1012,7 @@ vendor/lib64/VP9SecureVdecCA.so
 # Media (Codec2)
 vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b;SYMLINK=vendor/bin/hw/android.hardware.media.c2@1.2-mediatek
 vendor/etc/init/android.hardware.media.c2@1.2-mediatek.rc
-vendor/etc/vintf/manifest/manifest_media_c2_V1_1_default.xml
+vendor/etc/vintf/manifest/manifest_media_c2_V1_2_default.xml
 vendor/lib/libadpcmdec_mtk.so
 vendor/lib/libcodec2_mtk_c2store.so
 vendor/lib/libcodec2_mtk_vdec.so
@@ -1045,6 +1048,7 @@ vendor/lib64/libmvpu_config_data.so
 vendor/lib64/libstagefrighthw.so
 vendor/lib64/libformatter.so
 vendor/lib64/libmp3dec_mtk.so
+vendor/lib/libmp3dec_mtk.so
 
 # MMS
 vendor/bin/hw/vendor.mediatek.hardware.mms@1.6-service
@@ -1173,6 +1177,8 @@ vendor/lib64/vendor.mediatek.hardware.videotelephony@1.0.so;MODULE_SUFFIX=_vendo
 # Sensors
 vendor/lib64/hw/android.hardware.sensors@2.X-subhal-mediatek.so
 vendor/lib64/hw/sensors.mt6768.so
+vendor/etc/mpe.conf
+vendor/lib64/libsensorndkbridge-v31.so
 vendor/lib64/libhwm.so
 vendor/lib64/libksensor.so
 vendor/lib64/libsensor_custom.so
@@ -1191,3 +1197,6 @@ vendor/lib64/libwifi-hal.so:vendor/lib64/libwifi-hal-mtk.so;FIX_SONAME
 
 # WPA_SUPPLICANT
 vendor/bin/wpa_cli
+vendor/bin/hw/wpa_supplicant
+vendor/etc/init/android.hardware.wifi.supplicant-service.rc
+vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml
