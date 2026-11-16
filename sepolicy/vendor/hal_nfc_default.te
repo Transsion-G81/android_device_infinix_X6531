@@ -18,3 +18,17 @@
 # HAL talks back to the NFC HAL for the off-host (UICC/eSE) routing.
 allow hal_nfc_default mtk_hal_secure_element:binder call;
 allow mtk_hal_secure_element hal_nfc_default:binder call;
+
+# TMS/THN31 NFC HAL runtime access (chip_name sysfs, VTP/SE storage, sockets, props)
+allow hal_nfc_default sysfs_chip_name:file r_file_perms;
+allow hal_nfc_default secure_element_vendor_data_file:dir rw_dir_perms;
+allow hal_nfc_default secure_element_vendor_data_file:file create_file_perms;
+allow hal_nfc_default vendor_nfc_socket_file:dir rw_dir_perms;
+allow hal_nfc_default vendor_nfc_socket_file:sock_file create_file_perms;
+allow hal_nfc_default secure_element_device:chr_file rw_file_perms;
+set_prop(hal_nfc_default, vendor_nfc_prop)
+set_prop(hal_nfc_default, vendor_tms_nfc_prop)
+set_prop(hal_nfc_default, vendor_tran_nfc_chip_prop)
+
+allow mtk_hal_secure_element secure_element_vendor_data_file:dir rw_dir_perms;
+allow mtk_hal_secure_element secure_element_vendor_data_file:file create_file_perms;

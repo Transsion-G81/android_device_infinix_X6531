@@ -43,3 +43,8 @@ vendor.sys.thermal. u:object_r:vendor_thermal_engine_prop:s0
 vendor.tee.googlekey.status                          u:object_r:vendor_mtk_trustonic_tee_prop:s0
 
 # VT
+
+# NFC (X6531B)
+persist.vendor.nfc.                                  u:object_r:vendor_nfc_prop:s0
+vendor.tms.nfc.                                      u:object_r:vendor_tms_nfc_prop:s0
+persist.vendor.tran_nfc_chip_manufacturer            u:object_r:vendor_tran_nfc_chip_prop:s0

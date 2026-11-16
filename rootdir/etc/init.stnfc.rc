@@ -17,7 +17,7 @@ on boot
 service nfc_hal_service.tms /vendor/bin/hw/android.hardware.nfc@1.2-service-tms
     class hal
     user nfc
-    group nfc
+    group nfc secure_element
 
 # MTK SIM/UICC Secure Element HAL (prebuilt)
 service mtk_secure_element_hal_service /vendor/bin/hw/android.hardware.secure_element@1.2-service-mediatek
