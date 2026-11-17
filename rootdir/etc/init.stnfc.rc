@@ -24,3 +24,6 @@ service mtk_secure_element_hal_service /vendor/bin/hw/android.hardware.secure_el
     class hal
     user secure_element
     group secure_element
+    # ctl.interface_start targets for com.android.se lazy HAL lookup.
+    interface android.hardware.secure_element@1.2::ISecureElement SIM1
+    interface android.hardware.secure_element@1.2::ISecureElement SIM2
