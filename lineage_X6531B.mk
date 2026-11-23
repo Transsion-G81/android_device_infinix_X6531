@@ -21,7 +21,7 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 PRODUCT_DEVICE := X6531
 PRODUCT_MANUFACTURER := Infinix
 PRODUCT_BRAND := Infinix
-PRODUCT_MODEL := Infinix X6531B
+PRODUCT_MODEL := Infinix Hot 50I
 
 PRODUCT_SYSTEM_NAME := X6531B-OP
 PRODUCT_SYSTEM_DEVICE := X6531B
@@ -33,7 +33,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildFingerprint=Infinix/X6531B-OP/Infinix-X6531B:14/UP1A.231005.007/260713V1136:user/release-keys \
     SystemModel=$(PRODUCT_SYSTEM_DEVICE) \
     SystemName=$(PRODUCT_SYSTEM_NAME) \
-    ProductModel=$(PRODUCT_SYSTEM_DEVICE) \
+    ProductModel="$(PRODUCT_MODEL)" \
     DeviceProduct=$(PRODUCT_SYSTEM_NAME)
 
 PRODUCT_PACKAGES += apns-conf.X6531
